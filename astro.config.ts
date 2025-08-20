@@ -9,7 +9,6 @@ import webmanifest from "astro-webmanifest";
 import { defineConfig, envField } from "astro/config";
 import { expressiveCodeOptions } from "./src/site.config";
 import { siteConfig } from "./src/site.config";
-import vercel from "@astrojs/vercel";
 
 // Remark plugins
 import remarkDirective from "remark-directive"; // Handle ::: directives as nodes
@@ -23,15 +22,21 @@ import rehypeExternalLinks from "rehype-external-links";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 import rehypeKatex from "rehype-katex"; // Render LaTeX with KaTeX
 
+// 注释掉 CMS OAuth 插件以支持静态构建
+// import decapCmsOauth from "astro-decap-cms-oauth";
 
-import decapCmsOauth from "astro-decap-cms-oauth";
+// 如果需要 CMS 功能，取消注释以下行并安装 Node.js 适配器：
+// import decapCmsOauth from "astro-decap-cms-oauth";
+// import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
-  adapter: vercel({
-    edgeMiddleware: true
-  }),
+  output: 'static', // EdgeOne 静态部署
+  // adapter: 不需要适配器
+  
+  // 如果需要 CMS 功能，取消注释以下配置：
+  // output: 'server',
+  // adapter: node({ mode: 'standalone' }),
     image: {
         domains: ["webmention.io"],
     },
@@ -79,7 +84,10 @@ export default defineConfig({
             insertThemeColorMeta: false,
             insertManifestLink: false,
         },
-		}), decapCmsOauth()],
+		})
+    // 注释掉 CMS OAuth 插件
+    // , decapCmsOauth()
+    ],
     markdown: {
         rehypePlugins: [
             [
@@ -124,6 +132,8 @@ export default defineConfig({
             WEBMENTION_API_KEY: envField.string({ context: "server", access: "secret", optional: true }),
             WEBMENTION_URL: envField.string({ context: "client", access: "public", optional: true }),
             WEBMENTION_PINGBACK: envField.string({ context: "client", access: "public", optional: true }),
+            OAUTH_GITHUB_CLIENT_ID: envField.string({ context: "server", access: "secret", optional: true }),
+            OAUTH_GITHUB_CLIENT_SECRET: envField.string({ context: "server", access: "secret", optional: true }),
         },
     },
 });
