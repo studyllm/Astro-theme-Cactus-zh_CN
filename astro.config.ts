@@ -30,6 +30,14 @@ import decapCmsOauth from "astro-decap-cms-oauth";
 export default defineConfig({
   output: 'static', // 🚀 Astro 5.0：默认静态生成，支持按需SSR（通过 export const prerender = false）
   adapter: node({ mode: 'standalone' }), // EdgeOne 兼容的 Node.js 适配器
+  
+  // 🔧 EdgeOne 部署配置：处理 client/server 分离结构
+  outDir: './dist', // 设置输出根目录
+  
+  // 🌐 服务器配置：确保静态资源正确映射
+  server: {
+    host: true, // 允许外部访问
+  },
     image: {
         domains: ["webmention.io"],
     },
