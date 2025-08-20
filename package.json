@@ -5,8 +5,8 @@
 		"dev": "astro dev",
 		"start": "astro dev",
 		"build": "astro check && astro build",
-    "build:edgeone": "astro check && astro build && pnpm run post-build:edgeone",
-    "post-build:edgeone": "cp -r dist/client/* dist/ && cp -r functions dist/ && echo 'EdgeOne build complete'"
+		"build:edgeone": "astro check && astro build && pnpm run post-build:edgeone",
+		"post-build:edgeone": "cp -r dist/client/* dist/ && cp -r functions dist/ && echo 'EdgeOne build complete'",
 		"postbuild": "pagefind --site dist/client --output-path dist/pagefind",
 		"preview": "astro preview",
 		"lint": "biome lint .",
