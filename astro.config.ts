@@ -9,6 +9,7 @@ import webmanifest from "astro-webmanifest";
 import { defineConfig, envField } from "astro/config";
 import { expressiveCodeOptions } from "./src/site.config";
 import { siteConfig } from "./src/site.config";
+import cloudflare from "@astrojs/cloudflare";
 
 // Remark plugins
 import remarkDirective from "remark-directive"; // Handle ::: directives as nodes
@@ -22,16 +23,13 @@ import rehypeExternalLinks from "rehype-external-links";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 import rehypeKatex from "rehype-katex"; // Render LaTeX with KaTeX
 
-// CMS OAuth 插件 - 启用以支持内容管理
-import decapCmsOauth from "astro-decap-cms-oauth";
 
-import node from "@astrojs/node";
+import decapCmsOauth from "astro-decap-cms-oauth";
 
 // https://astro.build/config
 export default defineConfig({
-  // 服务器渲染模式：支持 CMS OAuth 功能
   output: 'server',
-  adapter: node({ mode: 'standalone' }),
+  adapter: cloudflare(),
     image: {
         domains: ["webmention.io"],
     },
@@ -79,9 +77,7 @@ export default defineConfig({
             insertThemeColorMeta: false,
             insertManifestLink: false,
         },
-		})
-    , decapCmsOauth()
-    ],
+		}), decapCmsOauth()],
     markdown: {
         rehypePlugins: [
             [
@@ -125,9 +121,7 @@ export default defineConfig({
         schema: {
             WEBMENTION_API_KEY: envField.string({ context: "server", access: "secret", optional: true }),
             WEBMENTION_URL: envField.string({ context: "client", access: "public", optional: true }),
-            WEBMENTION_PINGBACK: envField.string({ context: "client", access: "public", optional: true }),
-            OAUTH_GITHUB_CLIENT_ID: envField.string({ context: "server", access: "secret", optional: true }),
-            OAUTH_GITHUB_CLIENT_SECRET: envField.string({ context: "server", access: "secret", optional: true }),
+            WEBMENTION_PINGBACK: envField.string({ context: "client", access: "public", optional: true })
         },
     },
 });
