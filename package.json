@@ -4,7 +4,9 @@
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
-		"build": "astro build",
+		"build": "astro check && astro build",
+		"build:edgeone": "astro check && astro build && pnpm run post-build:edgeone",
+		"post-build:edgeone": "cp -r dist/client/* dist/ && echo 'EdgeOne build complete'",
 		"postbuild": "pagefind --site dist/client --output-path dist/pagefind",
 		"preview": "astro preview",
 		"lint": "biome lint .",
