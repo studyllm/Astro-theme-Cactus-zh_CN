@@ -28,8 +28,8 @@ import decapCmsOauth from "astro-decap-cms-oauth";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'static',
-  //adapter: null,
+  output: 'server',
+  adapter: null,
     image: {
         domains: ["webmention.io"],
     },
