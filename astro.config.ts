@@ -23,7 +23,7 @@ import rehypeUnwrapImages from "rehype-unwrap-images";
 import rehypeKatex from "rehype-katex"; // Render LaTeX with KaTeX
 
 // 注释掉 CMS OAuth 插件以支持静态构建
-// import decapCmsOauth from "astro-decap-cms-oauth";
+import decapCmsOauth from "astro-decap-cms-oauth";
 
 // 如果需要 CMS 功能，取消注释以下行并安装 Node.js 适配器：
 // import decapCmsOauth from "astro-decap-cms-oauth";
