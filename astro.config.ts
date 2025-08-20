@@ -22,21 +22,16 @@ import rehypeExternalLinks from "rehype-external-links";
 import rehypeUnwrapImages from "rehype-unwrap-images";
 import rehypeKatex from "rehype-katex"; // Render LaTeX with KaTeX
 
-// 注释掉 CMS OAuth 插件以支持静态构建
+// CMS OAuth 插件 - 启用以支持内容管理
 import decapCmsOauth from "astro-decap-cms-oauth";
 
-// 如果需要 CMS 功能，取消注释以下行并安装 Node.js 适配器：
-// import decapCmsOauth from "astro-decap-cms-oauth";
-// import node from "@astrojs/node";
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'static', // EdgeOne 静态部署
-  // adapter: 不需要适配器
-  
-  // 如果需要 CMS 功能，取消注释以下配置：
-  // output: 'server',
-  // adapter: node({ mode: 'standalone' }),
+  // 服务器渲染模式：支持 CMS OAuth 功能
+  output: 'server',
+  adapter: node({ mode: 'standalone' }),
     image: {
         domains: ["webmention.io"],
     },
@@ -85,8 +80,7 @@ export default defineConfig({
             insertManifestLink: false,
         },
 		})
-    // 注释掉 CMS OAuth 插件
-     , decapCmsOauth()
+    , decapCmsOauth()
     ],
     markdown: {
         rehypePlugins: [
