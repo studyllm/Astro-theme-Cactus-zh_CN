@@ -86,7 +86,7 @@ export default defineConfig({
         },
 		})
     // 注释掉 CMS OAuth 插件
-    // , decapCmsOauth()
+     , decapCmsOauth()
     ],
     markdown: {
         rehypePlugins: [
