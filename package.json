@@ -1,13 +1,11 @@
 {
 	"name": "",
 	"version": "5.0.0",
-	"main": "dist/server/entry.mjs",
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
 		"build": "astro build",
-		"build:edgeone": "astro build && echo '✅ EdgeOne混合模式构建完成！'",
-		"postbuild": "pagefind --site dist/client --output-path dist/client/pagefind",
+    "postbuild": "pagefind --site dist/client --output-path .vercel/output/static/pagefind",
 		"preview": "astro preview",
 		"lint": "biome lint .",
 		"format": "pnpm run format:code && pnpm run format:imports",
@@ -16,12 +14,12 @@
 		"check": "astro check"
 	},
 	"dependencies": {
-		"@astrojs/mdx": "^4.0.1",
-		"@astrojs/node": "^9.4.2",
-		"@astrojs/rss": "^4.0.10",
-		"@astrojs/sitemap": "^3.2.1",
-		"@astrojs/tailwind": "^5.1.3",
-		"astro": "^5.3.4",
+		"@astrojs/mdx": "4.0.1",
+		"@astrojs/rss": "4.0.10",
+		"@astrojs/sitemap": "3.2.1",
+		"@astrojs/tailwind": "5.1.3",
+		"@astrojs/vercel": "^8.0.1",
+		"astro": "5.0.3",
 		"astro-decap-cms-oauth": "^0.5.1",
 		"astro-expressive-code": "^0.38.3",
 		"astro-icon": "^1.1.4",
