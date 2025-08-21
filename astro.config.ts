@@ -9,7 +9,7 @@ import webmanifest from "astro-webmanifest";
 import { defineConfig, envField } from "astro/config";
 import { expressiveCodeOptions } from "./src/site.config";
 import { siteConfig } from "./src/site.config";
-import node from "@astrojs/node";
+import vercel from "@astrojs/vercel";
 
 // Remark plugins
 import remarkDirective from "remark-directive"; // Handle ::: directives as nodes
@@ -28,16 +28,8 @@ import decapCmsOauth from "astro-decap-cms-oauth";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'static', // 🚀 Astro 5.0：默认静态生成，支持按需SSR（通过 export const prerender = false）
-  adapter: node({ mode: 'standalone' }), // EdgeOne 兼容的 Node.js 适配器
-  
-  // 🔧 EdgeOne 部署配置：处理 client/server 分离结构
-  outDir: './dist', // 设置输出根目录
-  
-  // 🌐 服务器配置：确保静态资源正确映射
-  server: {
-    host: true, // 允许外部访问
-  },
+  output: 'server',
+  adapter: vercel(),
     image: {
         domains: ["webmention.io"],
     },
@@ -130,8 +122,6 @@ export default defineConfig({
             WEBMENTION_API_KEY: envField.string({ context: "server", access: "secret", optional: true }),
             WEBMENTION_URL: envField.string({ context: "client", access: "public", optional: true }),
             WEBMENTION_PINGBACK: envField.string({ context: "client", access: "public", optional: true }),
-            OAUTH_GITHUB_CLIENT_ID: envField.string({ context: "server", access: "secret", optional: true }),
-            OAUTH_GITHUB_CLIENT_SECRET: envField.string({ context: "server", access: "secret", optional: true }),
         },
     },
 });
